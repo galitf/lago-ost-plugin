@@ -26,3 +26,10 @@ unset LAGO__START__WAIT_SUSPEND
         helpers.contains "$output" 'usage:'
     done
 }
+
+@test "ovirt.basic: command shows version" {
+    local installed_version
+    installed_version="$(rpm -q lago --queryformat %{version})"
+    helpers.run_ok "${OVIRTCLI[@]}" --version
+    helpers.contains "$output" "${OVIRTCLI[*]} $installed_version"
+}
